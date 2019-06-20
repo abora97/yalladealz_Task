@@ -7,10 +7,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiCall {
     public void userLogin(String email, String password, final ApiCallBack apiCallBack) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constant.BASE_URL).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constant.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
         GetUser getUser = retrofit.create(GetUser.class);
         getUser.Login(email, password).enqueue(new Callback<LoginModel>() {
             @Override
